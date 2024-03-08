@@ -1,0 +1,45 @@
+{% extends 'products/base.html'%}
+
+{% block body %}
+
+<div class="row">
+
+    <div class="col-md-2 offset-md-1">
+        <img height="300px" width="300px" class="card" src="{{ item.item_image.url }}" alt="" >
+    </div>
+
+    <div class="col-md-4 offset-md-1"> 
+        <h1 style="font-style: italic;">{{ item.item_name }}</h1>
+        <h2 style="font-style: italic; font-size: 1.3rem; text-align: justify;">{{ item.item_desc }}</h2>
+        <h3>₹{{ item.item_price }}</h3>
+    </div>
+
+    <div class="col-md-3 offset-md-1">
+        {% if user.is_authenticated and user.profile.user_type == 'admin' %}
+
+        <a href="{% url 'products:update_item' item.id %}" style="width: 80px;" class="btn btn-dark">Edit</a>
+        <a href="{% url 'products:delete_item' item.id %}" style="width: 80px;" class="btn btn-dark">Delete</a>
+        <a href="{% url 'products:index' %}" style="width: 80px;" class="btn btn-dark">Back</a>
+
+        {% elif user.is_authenticated and user.profile.user_type == 'com_owner' %}
+
+            <a href="{% url 'products:update_item' item.id %}" style="width: 80px;" class="btn btn-info">Edit</a>
+            <a href="{% url 'products:index' %}" style="width: 80px;" class="btn btn-danger">Back</a>
+
+        {% elif user.is_authenticated and user.profile.user_type == 'cust' %}
+            <form action="{% url 'products:add_to_cart' item.id %}" method="post">
+                {% csrf_token %}
+                <input type="number" id="quantity" name="quantity" value="1" min="1" class="mt-5">
+                <button type="submit" style="width: 110px;" class="btn btn-info">Add to Cart</button>
+            </form>
+
+            <!-- <a href="{% url 'products:add_to_cart' item.id %}" style="width: 110px;" class="btn btn-info">Add to cart</a> -->
+            <a href="{% url 'products:order_checkout' item.id %}" style="width: 80px;" class="btn btn-success mt-3">Order</a>
+            <a href="{% url 'products:index' %}" style="width: 80px;" class="btn btn-danger mt-3">Back</a>
+
+        {% endif%}
+    </div>
+
+</div>
+
+{% endblock %}

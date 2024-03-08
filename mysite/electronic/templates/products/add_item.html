@@ -1,0 +1,60 @@
+{% extends 'products/base.html' %}
+
+{% block body %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+        <strong>Error!</strong> Please correct the following errors:
+        <ul>
+            {% for field, error_list in form.errors.items %}
+            {% for error in error_list %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            {% endfor %}
+        </ul>
+        </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="card">
+                    <div class="card-header text-white bg-info">
+                        <div class="card-title">
+                            Add Item
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" method="POST">
+                            {% csrf_token %}
+                        
+                            <!-- <label>Company owner: </label><br>
+                            {{ form.company_owner }} -->
+                            
+                            <br><label>Product code: </label><br>
+                            {{ form.prod_code }}
+                        
+                            <br><label>Item Name: </label><br>
+                            {{ form.item_name }} 
+                        
+                            <br><label>Item Description: </label><br>
+                            {{ form.item_desc }}
+
+                            <br><label>Item Category: </label><br>
+                            {{ form.item_category }} 
+                        
+                            <br><label>Item Price: </label><br>
+                            {{ form.item_price }} 
+                        
+                            <br><label>Item Image</label><br>
+                            {{ form.item_image }}
+                        
+                            <button type="submit" class="btn btn-success btn-sm">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'products/base.html' %}
+
+{% block body %}
+    <form method="POST">
+        {% csrf_token%}
+        <h3> Are you sure you want to delete {{ item.item_name }}? </h3>
+        <button type="submit">Yes, Confirm</button>
+    </form>
+    
+    <a href="{% url 'products:detail' item.id %}">
+        <button>
+            No,Take me back
+        </button>
+    </a>
+{% endblock %}

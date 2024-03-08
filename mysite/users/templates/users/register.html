@@ -1,0 +1,71 @@
+{% extends 'products/base.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block body %}
+
+    {% if form.errors %}
+    <div class="alert alert-danger">
+      <strong>Error!</strong> Please correct the following errors:
+      <ul>
+        {% for field, error_list in form.errors.items %}
+          {% for error in error_list %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <div class="card">
+                        <div class="card-header text-white bg-info">
+                            <div class="card-title">
+                                Sign Up
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <label>Username: </label><br>
+                                {{ form.username }}
+                            
+                                <br><label>Email: </label><br>
+                                {{ form.email }}
+                            
+                                <br><label>First Name: </label><br>
+                                {{ form.first_name }}
+                            
+                                <br><label>Last Name: </label><br>
+                                {{ form.last_name }}
+                            
+                                <br><label>Password: </label><br>
+                                {{ form.password1 }}
+                            
+                                <br><label>Confirm Password: </label><br>
+                                {{ form.password2 }}
+                            
+                                <button type="submit" class="btn btn-sm" style="background: #7BA7C0;"> Sign Up </button>
+                            </form>
+
+                            Already a User? <a href="{% url 'login' %}"> Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+
+
+</body>
+</html>

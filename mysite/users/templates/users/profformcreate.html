@@ -1,0 +1,12 @@
+{% extends 'products/base.html'%}
+
+
+{% block body %}
+
+<form method="POST">
+    {% csrf_token %}
+    <h6>{{ prof.id }}</h6>
+    {{ profform }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

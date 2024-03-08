@@ -1,0 +1,39 @@
+{% extends 'products/base.html' %}
+
+{% block body %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-header text-white bg-info">
+                    <div class="card-title">
+                        Profile
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>{{ prof.id }}</h3>
+                    <h3>{{ user.first_name }}</h3>
+                    <h3>{{ user.last_name }}</h3>
+                    <h3>{{ user.phone_number }}</h3>
+                    <h3>{{ user.profile.user_type }}</h3>
+                    <h3>{{ user.profile.location }}</h3>
+                    <img height="100px" width="100px" src="{{ prof.image.url }}" alt="">
+
+                    <br><br><br>
+
+                    <a href="{% url 'edit_profile' prof.id %}" class="btn btn-dark">
+                        Edit
+                    </a>
+                    <a href="{% url 'products:index' %}" class="btn btn-dark">
+                        back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'products/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+{% block body %}
+    <div class="row ">
+        <div class="col card ml-5 md-3" style="padding: 20px;">
+            <h2>Checkout</h2>
+            <form method="POST" action="{% url 'products:checkout' %}">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td>
+                            <label for="firstname">First Name:</label>
+                            {{ form.firstname }}
+                        </td>
+                        <td>
+                            <label for="lastname" style="margin-left: 10px;">Last Name:</label>
+                            {{ form.lastname }}
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>
+                            <label for="email" style="display: block;">Email:</label>
+                            <input type="{{ form.email.type }}" name="{{ form.email.name }}" value="{{ form.email.value }}" style="width: 550px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="address" style="display: block;">Address:</label>
+                            <input type="{{ form.address.type }}" name="{{ form.address.name }}"style="width: 550px;">
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>
+                            <label for="city" style="display: block;">City:</label>
+                            {{ form.city }}
+                        </td>
+                        <td>
+                            <label for="state" style="display: block; margin-left: 30px;">State:</label>
+                            {{ form.state }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="country" style="display: block;">Country:</label>
+                            {{ form.country }}
+                        </td>
+                        <td>
+                            <label for="pincode" style="display: block;">Pincode:</label>
+                            {{ form.pincode }}
+                        </td>
+                    </tr>
+                </table>
+                <button type="submit" class="btn btn-success">Place Order</button>
+            </form>
+        </div>
+        <div class="col">
+            <div class="card mr-5 md-3" style="padding: 20px;">
+            <h2 style="text-align: center;">Checkout</h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.item_name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₹{{ item.product.item_price }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h4>Total Price: ₹{{ total_price }}</h4>
+            <a href="#" class="btn btn-success" style="width: 150px;">Confirm Order</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>
